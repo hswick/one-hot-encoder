@@ -3,9 +3,19 @@
 A tiny Clojure library designed to perform feature extraction on categorical data using one hot encoding.
 https://en.wikipedia.org/wiki/One-hot
 
+## Installation
+To install with Leiningen:
+
+```clojure
+[hswick/one-hot-encoder "0.1.0"]
+```
+
 ## Usage
 
 ```clojure
+(ns foo.clojure
+  (:require [one-hot-encoder.core :refer :all]))
+
 (def test-data [["Sample" "Category" "Numerical"]
                 [1 "Human" 1]
                 [2 "Human" 1]
@@ -17,22 +27,22 @@ https://en.wikipedia.org/wiki/One-hot
 
 (def cols (distinct (map #(nth % 1) (rest test-data))))
 
-(encode cols "Human")#=> [1 0 0 0]
+(encode cols "Human");;=> [1 0 0 0]
 
-(encode cols "Human" "Penguin")#=> [1 1 0 0] 
+(encode cols "Human" "Penguin");;=> [1 1 0 0]
 
-(encode-coll cols ["Human" "Penguin"])#=> [1 1 0 0]
+(encode-coll cols ["Human" "Penguin"]);;=> [1 1 0 0]
 
 (encode-table cols [["Human" "Penguin"]
                     ["Human" "Penguin"]
                     ["Human" "Penguin"]
                     ["Human" "Penguin"]
                     ["Human" "Penguin"]])
-#=> ([1 1 0 0] [1 1 0 0] [1 1 0 0] [1 1 0 0] [1 1 0 0])		    
+;;=> ([1 1 0 0] [1 1 0 0] [1 1 0 0] [1 1 0 0] [1 1 0 0])		    
 
 (def enc (encode ["Human" "Bro" "Foo"] "Human"))
 
-(decode ["Human" "Bro" "Foo"] enc)#=> ("Human")
+(decode ["Human" "Bro" "Foo"] enc);;=> ("Human")
 ```
 
 Implementation taken from top answer [here](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
